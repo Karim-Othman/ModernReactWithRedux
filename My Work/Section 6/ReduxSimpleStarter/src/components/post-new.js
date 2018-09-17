@@ -56,8 +56,8 @@ class NewPost extends Component {
                              component={this.RenderField}
                         />
                         <Field
-                             name="contents"
-                             label="Contents"
+                             name="content"
+                             label="Content"
                              component={this.RenderField}
                         />
 
