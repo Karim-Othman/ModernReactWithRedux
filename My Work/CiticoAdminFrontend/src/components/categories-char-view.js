@@ -27,7 +27,7 @@ class CategoryCharView extends Component{
 
         let SubcategoriesArray=nextProps.category.subCategories;
         
-        if(!isEmpty(SubcategoriesArray))
+        if(!isEmpty(SubcategoriesArray) && this.props.category !== nextProps.category)
             {
             //setState is Async and the blur lines return empty.. and there is something goes wrong when map over SubcategoriesArray, it gives un defined
             // I think it is a memory refrencing issue
@@ -53,7 +53,7 @@ class CategoryCharView extends Component{
     {
         
         const {touched,error} = meta;
-        let category=this.props.category;
+        // let category=this.props.category;
         const ClassNameVariable = `form-group ${touched && error ? 'has-danger':''} `;
         const SubCategoryObject = this.state.subCategories[CategoryIndexinArray];
         

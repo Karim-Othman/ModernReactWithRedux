@@ -33,11 +33,11 @@ import CategoryCharView from './categories-char-view';
         const categoryObject=nextProps.category;
        
         
-        if(!isEmpty(categoryObject)){
+        if(!isEmpty(categoryObject) && this.props.category !== nextProps.category){
 
             // this line will map the recived application state to component state to update component state
             this.setState({...categoryObject});
-
+            
             // those lines will update redux form with application state values.. dependancy (import blur and map it to mapActionToProps)
             this.props.blur('CategoryView','TechName',categoryObject.TechName);
             this.props.blur('CategoryView','ARCommName',categoryObject.ARCommName);
@@ -51,10 +51,10 @@ import CategoryCharView from './categories-char-view';
     {
         
         const {touched,error} = meta;
-        let category=this.props.category;
-        const NewValue= this.state[valueKey];
+        // let category=this.props.category;
+        // const NewValue= this.state[valueKey];
         const ClassNameVariable = `form-group ${touched && error ? 'has-danger':''} `;
-
+        
         return (
                 <div id= 'TopPadding' className = {ClassNameVariable}>
                     <label>{label}</label>
@@ -104,7 +104,7 @@ import CategoryCharView from './categories-char-view';
                             
                             <div className="CategoriesViewBackGround CategoriesViewPadding">
                                 <Field
-                                    onChange={event =>  this.setState({TechName : event.target.value})}
+                                    onChange={event => this.setState({TechName : event.target.value})}
                                     name="TechName"
                                     valueKey="TechName"
                                     label="Technical Name"
