@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import {parsePostData} from '../parsers/postCategories';
 
 
 export const Edit_Categories = 'Edit_Categories';
@@ -9,12 +9,15 @@ export const Map_Category='Map_Category';
 const RootUrl='http://localhost:5000/api';
 
 
-export function EditCategories (PostData,callback)
+export function EditCategories (PostDataBeforeParse,callback)
 {
 
-    console.log(PostData);
-    const Request= axios.post(`${RootUrl}/categories`,PostData)
-    .then(()=>callback());
+    console.log(PostDataBeforeParse);
+
+    const parsedPostData = parsePostData(PostDataBeforeParse);
+    
+    // const Request= axios.post(`${RootUrl}/categories`,PostData)
+    // .then(()=>callback());
     
 
     return {

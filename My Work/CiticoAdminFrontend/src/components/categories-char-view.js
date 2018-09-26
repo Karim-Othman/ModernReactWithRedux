@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Field, reduxForm} from 'redux-form';
+import {Field, reduxForm, blur} from 'redux-form';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import {EditCategories} from '../actions/index';
 import { log } from 'util';
 import ViewCategoryReducer from '../reducers/ViewCategory-reducer';
@@ -24,11 +25,26 @@ class CategoryCharView extends Component{
 
       componentWillReceiveProps(nextProps) {
 
-        const SubcategoriesArray=nextProps.category.subCategories;
+        let SubcategoriesArray=nextProps.category.subCategories;
         
         if(!isEmpty(SubcategoriesArray))
             {
-            this.setState({subCategories : SubcategoriesArray});
+            //setState is Async and the blur lines return empty.. and there is something goes wrong when map over SubcategoriesArray, it gives un defined
+            // I think it is a memory refrencing issue
+            //We will make blur as a call back
+            this.setState({subCategories : SubcategoriesArray},
+             // setState Callback   
+            ()=>{
+
+            // those lines will update redux form with application state values.. dependancy (import blur and map it to mapActionToProps)
+
+                this.state.subCategories.map((element,index)=>{
+                        
+                        this.props.blur('CategoryView',`subCatTechName(${index})`,element.subCatTechName);
+                        this.props.blur('CategoryView',`subCatARCommName(${index})`,element.subCatARCommName);
+                        this.props.blur('CategoryView',`subCatENCommName(${index})`,element.subCatENCommName);
+                })}
+            );
             }
 
       }
@@ -64,7 +80,7 @@ class CategoryCharView extends Component{
 
     MapOverSubCategories({subCatTechName,subCatARCommName,subCatENCommName},index){
 
-       
+      
         
         return(
               <div className="SubCategorydivStyle" key={this.state.subCategories[index]._id}>
@@ -75,8 +91,8 @@ class CategoryCharView extends Component{
                                             this.setState({subCategories:NewState.subCategories});
 
                                         }}
-                                            
-                                        name="subCatTechName"
+                                        //give diffrent names to field elements in order to blur them separately    
+                                        name={`subCatTechName(${index})`}
                                         valueKey="subCatTechName"
                                         label="Technical Name"
                                         CategoryIndexinArray={index}
@@ -90,7 +106,7 @@ class CategoryCharView extends Component{
                                             this.setState({subCategories:NewState.subCategories});
 
                                         }}
-                                        name="subCatARCommName"
+                                        name={`subCatARCommName(${index})`}
                                         valueKey="subCatARCommName"
                                         label="Arabic Name"
                                         CategoryIndexinArray={index}
@@ -103,7 +119,7 @@ class CategoryCharView extends Component{
                                             this.setState({subCategories:NewState.subCategories});
  
                                         }}
-                                        name="subCatENCommName"
+                                        name={`subCatENCommName(${index})`}
                                         valueKey="subCatENCommName"
                                         label="English Name"
                                         CategoryIndexinArray={index}
@@ -166,4 +182,9 @@ function mapStateToProps({category})
     return {category};
 }
 
-export default connect (mapStateToProps, {EditCategories}) (CategoryCharView);
+function mapDispatchToProps (dispatch)
+{
+    return bindActionCreators ({EditCategories, blur}, dispatch);
+}
+
+export default connect (mapStateToProps, mapDispatchToProps) (CategoryCharView);
