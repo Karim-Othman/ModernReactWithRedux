@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { log } from 'util';
 import {parsePostData} from '../parsers/postCategories';
 
 
 export const Edit_Categories = 'Edit_Categories';
 export const Fetch_Categories = 'Fetch_Categories';
 export const Map_Category='Map_Category';
+export const Delete_Category='Delete_Category';
+
 
 const RootUrl='http://localhost:5000/api';
 
@@ -33,6 +34,22 @@ export function EditCategories (PostDataBeforeParse,callback)
 
 }
 
+
+export function DeleteCategoryAction (TechNameToBeDeleted,callback){
+
+    const Request= axios.delete(`${RootUrl}/categories/${TechNameToBeDeleted}`)
+    .then(()=>callback());
+    
+
+    return {
+
+        type: Delete_Category,
+
+        payload: Request
+
+
+    };
+}
 
 export function FetchCategories(){
 

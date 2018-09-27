@@ -49,7 +49,7 @@ img.opacity {
 
 .paddingTop#CategoriesList{
 
-    padding-top: 30%;
+    padding-top: 38px;
 }
 
 .MarginRight{
@@ -122,6 +122,16 @@ form a {
         float: right;
         box-sizing: border-box;
 }
+
+#ButtonsFloatLeft{
+
+    float: left;
+    margin-top: 50px;
+    margin-bottom: 60px;
+    margin-left: 25px;
+    box-sizing: border-box;
+}
+
 
 .CtegoriesViewButtonsPadding{
 

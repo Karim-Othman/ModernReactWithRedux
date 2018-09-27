@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import {Field, reduxForm, blur} from 'redux-form';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {EditCategories} from '../actions/index';
+import {EditCategories, DeleteCategoryAction} from '../actions/index';
 import {bindActionCreators} from 'redux';
-import { log } from 'util';
-import ViewCategoryReducer from '../reducers/ViewCategory-reducer';
 import CategoryCharView from './categories-char-view';
+
 
  class CategoriesView extends Component{
 
@@ -24,6 +23,7 @@ import CategoryCharView from './categories-char-view';
 
         // This binding is necessary to make `this` work in the callback
         this.RenderField = this.RenderField.bind(this);
+        this.DeleteCategory = this.DeleteCategory.bind(this);
       }
 
 
@@ -77,12 +77,43 @@ import CategoryCharView from './categories-char-view';
 
 
 
+
+    DeleteCategory()
+    {
+        if(this.state.TechName)
+            this.props.DeleteCategoryAction(this.state.TechName,()=>
+            {
+                window.location.reload();
+
+            });
+
+    }
+
     onSubmit (values)
     {
+
+        //if Technical Name Doesn't change then "edit" which is delete and add new
+
+        if (this.props.category.TechName==this.state.TechName){
+            //delete first
+
+            if(this.state.TechName)
+            this.props.DeleteCategoryAction(this.state.TechName,()=>
+            {
+                this.props.EditCategories(values,()=>
+                    {
+                        window.location.reload();
+
+                    });
+
+            });
+        }
+
+        //else add new as normal
         //this line will call action creator to submit values
         this.props.EditCategories(values,()=>
     {
-        this.props.history.push('/');
+        window.location.reload();
 
     });
     }
@@ -95,10 +126,11 @@ import CategoryCharView from './categories-char-view';
             <div>
                 
     
+                <div><button className="btn btn-danger" id="ButtonsFloat" onClick={this.DeleteCategory}>Delete</button></div>
                 <div className='paddingTop'>
                       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                             <div className="CtegoriesViewButtonsPadding">
-                                <Link className = 'btn btn-danger'  to= '/' id="ButtonsFloat">Cancel</Link>
+                                <Link className = 'btn btn-dark'  to= '/' id="ButtonsFloat">Cancel</Link>
                                 <button type="submit" className="btn btn-success" id="ButtonsFloat">Submit</button>
                             </div>
                             
@@ -196,14 +228,17 @@ function mapStateToProps({category})
 
 function mapDispatchToProps (dispatch)
 {
-    return bindActionCreators ({EditCategories, blur}, dispatch);
+    return bindActionCreators ({EditCategories, blur, DeleteCategoryAction}, dispatch);
 }
 
-export default reduxForm({
+//withRouter here because this component is not defined as a router comonent so it should be conected like this
+//ex: not defined as following in src/index.js <Route component={SomeConnectedThing}/>
+
+export default withRouter(reduxForm({
     validate,
     form: 'CategoryView'
 })(
     
    connect (mapStateToProps, mapDispatchToProps)(CategoriesView)
 
-);
+));
