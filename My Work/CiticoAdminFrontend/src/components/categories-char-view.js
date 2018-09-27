@@ -51,12 +51,11 @@ class CategoryCharView extends Component{
 
     RenderField ({label, input, meta, valueKey,CategoryIndexinArray})
     {
-        console.log("here");
+        
         const {touched,error} = meta;
-        // let category=this.props.category;
         const ClassNameVariable = `form-group ${touched && error ? 'has-danger':''} `;
         const SubCategoryObject = this.state.subCategories[CategoryIndexinArray];
-        
+       
         return (
                 <div id= 'TopPadding' className = {ClassNameVariable}>
                     <label>{label}</label>
@@ -137,49 +136,18 @@ class CategoryCharView extends Component{
 
     MountDummySubcategory(){
 
-        const ID = new Date().getUTCMilliseconds();
-        const index = this.state.subCategories.length;
-        console.log(ID,index);
-        return(
+        const RandomId=Math.random().toString(36).substr(2, 16);
 
-            <div className="SubCategorydivStyle" key={ID}>
-                  <label className="SubCategoryLabel">Subcategory</label>
-                  <Field
-                                      onChange={(event) =>setState({value: event.target.value})}
+                                this.state.subCategories.push({
 
-                                      //give diffrent names to field elements in order to blur them separately    
-                                      name={`subCatTechName(${index})`}
-                                      valueKey="subCatTechName"
-                                      label="Technical Name"
-                                      CategoryIndexinArray={index}
-                                      component={this.RenderField}
-                                      
-                                  />
-                  <Field
+                                    subCatTechName:'',
+                                    subCatARCommName:'',
+                                    subCatENCommName:'',
+                                    _id:RandomId
 
-                                      onChange={(event) =>setState({value: event.target.value})}
-                                      name={`subCatARCommName(${index})`}
-                                      valueKey="subCatARCommName"
-                                      label="Arabic Name"
-                                      CategoryIndexinArray={index}
-                                      component={this.RenderField}
-                                      
-                                  />
-                  <Field
-                                      
-
-                                      onChange={(event) =>setState({value: event.target.value})}
-                                      name={`subCatENCommName(${index})`}
-                                      valueKey="subCatENCommName"
-                                      label="English Name"
-                                      CategoryIndexinArray={index}
-                                      component={this.RenderField}
-                                      
-                                  />
-              </div>
-          
-      );
-
+                            });
+                            this.forceUpdate();
+                            
 
 
     }
@@ -193,6 +161,7 @@ class CategoryCharView extends Component{
         let SubCategoriesArray=this.state.subCategories;
         if(SubCategoriesArray.length==0)
             return  (<div>
+                       
                         <button className="btn btn-info" type="button" id="ButtonsFloatLeft" onClick={this.MountDummySubcategory} >
                             <img src="http://files.softicons.com/download/toolbar-icons/blue-bits-icons-by-icojam/png/256x256/2_060.png" width="20" /> Add subcategory
                         </button>
@@ -204,6 +173,7 @@ class CategoryCharView extends Component{
             
             
                 {SubCategoriesArray.map(this.MapOverSubCategories)}
+                
             
                 <button className="btn btn-info" type="button" id="ButtonsFloatLeft" onClick={this.MountDummySubcategory}>
                     <img src="http://files.softicons.com/download/toolbar-icons/blue-bits-icons-by-icojam/png/256x256/2_060.png" width="20" /> Add subcategory

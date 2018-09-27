@@ -10,11 +10,15 @@ export function parsePostData(DataToBeParsed){
 
         TechName,
         ARCommName,
-        ENCommName,
-        characteristics
-
-
+        ENCommName
+        
     };
+
+    const characteristicsString=characteristics.toString();
+    let characteristicsArray=characteristicsString.split(',');
+    
+    ParsedData.characteristics= characteristicsArray;
+
 
      _.map(DataToBeParsed,function(value, key){
 
