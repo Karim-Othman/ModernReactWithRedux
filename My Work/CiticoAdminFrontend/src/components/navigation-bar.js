@@ -23,16 +23,16 @@ export default function NavigationBar (){
                                   <div id="mainNav" className="collapse navbar-collapse tm-bg-white">
                                       <ul className="navbar-nav ml-auto">
                                         <li className="nav-item">
-                                          <Link className="nav-link active" href="#top" to="/categories">Categories<span className="sr-only">(current)</span></Link>
+                                          <Link className="nav-link" to="/categories">Categories<span className="sr-only">(current)</span></Link>
                                       </li>
                                       <li className="nav-item">
-                                          <Link className="nav-link" href="#tm-section-2" to="packages">Packages</Link>
+                                          <Link className="nav-link" to="packages">Packages</Link>
                                       </li>
                                       <li className="nav-item">
-                                          <Link className="nav-link" href="#tm-section-3" to="/orders">Orders</Link>
+                                          <Link className="nav-link" to="/orders">Orders</Link>
                                       </li>
                                       <li className="nav-item">
-                                          <a className="nav-link" href="#tm-section-4">Reporting</a>
+                                          <a className="nav-link" href="#">Reporting</a>
                                       </li>
                                   </ul>
                               </div>                            

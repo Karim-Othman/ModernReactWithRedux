@@ -8,6 +8,11 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /\.css$/,
+        include: /node_modules/,
+        loaders: ['style-loader', 'css-loader']
+      },
+      {
     test: /\.(scss)$/,
     use: [{
       loader: 'style-loader', // inject CSS to page
@@ -37,7 +42,10 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.css'],
+    modulesDirectories: [
+      'node_modules'
+    ]
   },
   devServer: {
     historyApiFallback: true,

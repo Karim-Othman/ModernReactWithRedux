@@ -47,6 +47,8 @@ img.opacity {
     padding-top: 7%;
 }
 
+
+
 .paddingTop#CategoriesList{
 
     padding-top: 38px;
@@ -161,4 +163,17 @@ form a {
 
     align-self: auto;
     margin-left: 10%;
+}
+
+.PackagesSearchBar{
+
+    margin-top: 5px;
+    padding-top: 5%;
+    margin-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    width: 33.3%;
+    float: left;
+    box-sizing: border-box;
+
 }

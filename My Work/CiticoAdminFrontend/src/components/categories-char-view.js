@@ -163,7 +163,7 @@ class CategoryCharView extends Component{
             return  (<div>
                        
                         <button className="btn btn-info" type="button" id="ButtonsFloatLeft" onClick={this.MountDummySubcategory} >
-                            <img src="http://files.softicons.com/download/toolbar-icons/blue-bits-icons-by-icojam/png/256x256/2_060.png" width="20" /> Add subcategory
+                            <img src="https://mbtskoudsalg.com/images/add-button-png-2.png" width="30" /> Add subcategory
                         </button>
                     </div>);
         return(
@@ -176,7 +176,7 @@ class CategoryCharView extends Component{
                 
             
                 <button className="btn btn-info" type="button" id="ButtonsFloatLeft" onClick={this.MountDummySubcategory}>
-                    <img src="http://files.softicons.com/download/toolbar-icons/blue-bits-icons-by-icojam/png/256x256/2_060.png" width="20" /> Add subcategory
+                    <img src="https://mbtskoudsalg.com/images/add-button-png-2.png" width="30" /> Add subcategory
                 </button>
                 
             </div>
